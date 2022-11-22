@@ -9,7 +9,7 @@ import authRoute from './modules/auth/auth.route';
 import { globalExceptionMiddleware } from './middlewares/global-exception.middleware';
 import todoRouter from './modules/todo/todo.route';
 
-export const app: Express = express();
+const app: Express = express();
 const PORT = EnvConfig.PORT || 5500;
 
 app.use(bodyParser.json());
