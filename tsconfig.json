@@ -8,10 +8,8 @@
     "skipLibCheck": true,
     "baseUrl": "src",
     "moduleResolution": "node",
-    "typeRoots": [
-        "./src/types", "./node_modules/@types"]
+    "outDir": "dist",
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
-  "include": [
-      "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
