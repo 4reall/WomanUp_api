@@ -1,10 +1,16 @@
 import authService from './services/auth.service';
 import { NextFunction, Request, Response } from 'express';
+import { plainToInstance } from 'class-transformer';
+import { UserDto } from '../user/user.dto';
+import { validateOrReject } from 'class-validator';
 
 class AuthController {
   async registration(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await authService.registration(req.body);
+      const userDto = plainToInstance(UserDto, req.body as unknown);
+      await validateOrReject(userDto);
+
+      const response = await authService.registration(userDto);
       res.cookie('accessToken', response.token, {
         maxAge: 60 * 60 * 1000,
         httpOnly: true,
@@ -18,7 +24,10 @@ class AuthController {
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await authService.login(req.body);
+      const userDto = plainToInstance(UserDto, req.body as unknown);
+      await validateOrReject(userDto);
+
+      const response = await authService.login(userDto);
       res.cookie('accessToken', response.token, {
         maxAge: 60 * 60 * 1000,
         httpOnly: true,

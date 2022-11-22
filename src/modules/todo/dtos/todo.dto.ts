@@ -1,18 +1,33 @@
-import { IsNotEmpty, IsOptional, IsString, Max } from 'class-validator';
+import {
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class TodoDto {
+  @IsOptional()
+  @IsMongoId()
+  readonly _id: string;
+
   @IsString()
   @IsNotEmpty()
-  @Max(100)
+  @MaxLength(100)
   readonly title: string;
 
   @IsString()
   @IsOptional()
-  @Max(300)
+  @MaxLength(500)
   readonly description: string;
 
-  constructor(title: string, description: string) {
+  @IsMongoId()
+  readonly userId: string;
+
+  constructor(title: string, description: string, userId: string, _id: string) {
     this.title = title;
     this.description = description;
+    this.userId = userId;
+    this._id = _id;
   }
 }

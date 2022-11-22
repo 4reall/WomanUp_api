@@ -8,6 +8,7 @@ todoRouter.use(authMiddleware);
 
 todoRouter.get('/', todoController.getTodos);
 todoRouter.post('/', todoController.createTodo);
-todoRouter.delete('/:id', todoController.deleteTodo);
+todoRouter.delete('/:todoId', todoController.deleteTodo);
+todoRouter.patch('/:todoId', todoController.updateTodo);
 
 export default todoRouter;

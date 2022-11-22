@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import express, { Express } from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
@@ -5,10 +6,10 @@ import * as mongoose from 'mongoose';
 import cors from 'cors';
 import { EnvConfig } from './envConfig';
 import authRoute from './modules/auth/auth.route';
-import { globalExceptionMiddleware } from './middleware/global-exception.middleware';
+import { globalExceptionMiddleware } from './middlewares/global-exception.middleware';
 import todoRouter from './modules/todo/todo.route';
 
-const app: Express = express();
+export const app: Express = express();
 const PORT = EnvConfig.PORT || 5500;
 
 app.use(bodyParser.json());

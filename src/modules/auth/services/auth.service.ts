@@ -4,7 +4,6 @@ import { UserService } from '../../user/user.service';
 import { ApiError } from '../../../exceptions/api.error';
 import { JwtService } from './jwt.service';
 import { BaseResponse } from '../auth.types';
-import { JwtPayloadDto } from '../dtos/jwt-payload.dto';
 
 class AuthService {
   constructor(
@@ -23,9 +22,7 @@ class AuthService {
       password: hashedPassword,
     });
 
-    const payload = new JwtPayloadDto(user._id);
-
-    const token = this.jwtService.getToken(payload);
+    const token = this.jwtService.getToken(user._id);
 
     return { user, token };
   }
@@ -42,9 +39,7 @@ class AuthService {
       throw ApiError.BadRequest('Invalid password');
     }
 
-    const payload = new JwtPayloadDto(user._id);
-
-    const token = this.jwtService.getToken(payload);
+    const token = this.jwtService.getToken(user._id);
 
     return { user, token };
   }

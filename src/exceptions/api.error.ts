@@ -8,11 +8,14 @@ export class ApiError extends Error {
     this.status = status;
   }
 
-  static UnauthorizedError(message: string, errors?: unknown[]) {
+  static UnauthorizedError(
+    message: string = 'Unauthorized Error',
+    errors?: unknown[]
+  ) {
     return new ApiError(401, message, errors);
   }
 
-  static BadRequest(message: string, errors?: unknown[]) {
+  static BadRequest(message: string = 'Bad Request', errors?: unknown[]) {
     return new ApiError(400, message, errors);
   }
 }
