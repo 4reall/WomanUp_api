@@ -1,6 +1,7 @@
 import { ApiError } from '../exceptions/api.error';
 import { NextFunction, Request, Response } from 'express';
 
+// noinspection JSUnusedLocalSymbols
 export const globalExceptionMiddleware = (
   err: TypeError | ApiError,
   req: Request,
