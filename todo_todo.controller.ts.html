@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> todo/todo.controller.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Auth</h2><h3>Global</h3><ul><li><a href="global.html#authMiddleware">authMiddleware</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>todo/todo.controller.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { NextFunction, Request, Response } from 'express';
+import { TodoDto } from './dtos/todo.dto';
+import todoService from './todo.service';
+import { plainToInstance } from 'class-transformer';
+import { GetTodosDto } from './dtos/get-todos.dto';
+import { validateOrThrow } from '../../lib/validateOrThrow';
+
+/**
+ * @class
+ * @category Todo
+ * @subcategory Controller
+ */
+export class TodoController {
+  /**
+   * Method: GET
+   * &lt;br/>
+   * Route: todos/
+   * &lt;br/>
+   * Throws an error if req.user.userId
+   * (sets automatically for logged-in users by authMiddleware)
+   * not provided
+   * @async
+   * @method
+   * @param {GetTodosDto} req.query
+   * @return {IUser} Status code 200
+   */
+  async getTodos(req: Request, res: Response, next: NextFunction) {
+    try {
+      const getTodosDto = plainToInstance(GetTodosDto, {
+        ...(req.query as object),
+        userId: req.user?.userId,
+      });
+      await validateOrThrow(getTodosDto);
+
+      const todos = await todoService.getTodos(getTodosDto);
+
+      res.status(200).json(todos);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  /**
+   * Method: DELETE
+   * &lt;br/>
+   * Route: todos/:todoId
+   * @async
+   * @method
+   * @param {string} req.params.todoId
+   * @return {IUser} Status code 200
+   */
+  async deleteTodo(req: Request, res: Response, next: NextFunction) {
+    try {
+      await todoService.deleteTodo(req.params.todoId);
+
+      res.status(200).json({ message: 'Delete succeed' });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  /**
+   * Method: PATCH
+   * &lt;br/>
+   * Route: todos/:todoId
+   * &lt;br/>
+   * Body should contain new title and/or description
+   * @async
+   * @method
+   * @param {TodoDto} req.body
+   * @return {IUser} Status code 200
+   */
+  async updateTodo(req: Request, res: Response, next: NextFunction) {
+    try {
+      const todoDto = plainToInstance(TodoDto, {
+        description: req.body.description,
+        title: req.body.title,
+        _id: req.params.todoId,
+      });
+      await validateOrThrow(todoDto, {
+        skipUndefinedProperties: true,
+      });
+
+      const todo = await todoService.updateTodo(todoDto);
+
+      res.status(200).json(todo);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  /**
+   * Method: POST
+   * &lt;br/>
+   * Route: todos/
+   * &lt;br/>
+   * Throws an error if req.user.userId
+   * (sets automatically for logged-in users by authMiddleware)
+   * not provided
+   * @async
+   * @method
+   * @param {TodoDto} req.body
+   * @return {IUser} Status code 200
+   */
+  async createTodo(req: Request, res: Response, next: NextFunction) {
+    try {
+      const todoDto = plainToInstance(TodoDto, {
+        ...(req.body as object),
+        userId: req.user?.userId,
+      });
+      await validateOrThrow(todoDto);
+
+      const todo = await todoService.createTodo(todoDto);
+      res.status(200).json(todo);
+    } catch (e) {
+      next(e);
+    }
+  }
+}
+
+export default new TodoController();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
