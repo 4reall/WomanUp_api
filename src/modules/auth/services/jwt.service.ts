@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { EnvConfig } from '../../../envConfig';
 
-export class JwtService {
+class JwtService {
   getToken(userId: string) {
     if (!EnvConfig.SECRET_KEY) {
       throw new Error('Internal server error');
@@ -16,3 +16,5 @@ export class JwtService {
     return jwt.verify(token, EnvConfig.SECRET_KEY) as { userId: string };
   }
 }
+
+export default new JwtService();

@@ -2,15 +2,7 @@ import { IUser, User } from './user.model';
 import { UserDto } from './user.dto';
 import { ApiError } from '../../exceptions/api.error';
 
-export class UserService {
-  private static instance: UserService;
-
-  static getInstance() {
-    if (!this.instance) this.instance = new UserService();
-
-    return this.instance;
-  }
-
+class UserService {
   async createUser(userDto: UserDto): Promise<IUser> {
     const user = await User.findOne({ login: userDto.login });
 
@@ -39,3 +31,5 @@ export class UserService {
     }
   }
 }
+
+export default new UserService();

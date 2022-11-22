@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { JwtService } from './services/jwt.service';
 import { ApiError } from '../../exceptions/api.error';
-
-const jwtService = new JwtService();
+import jwtService from './services/jwt.service';
 
 export const authMiddleware = (
   req: Request,
@@ -10,21 +8,13 @@ export const authMiddleware = (
   next: NextFunction
 ) => {
   try {
-    const authorizationHeader = req.headers.authorization;
+    const accessToken = req.cookies.accessToken;
 
-    if (!authorizationHeader) {
-      return next(
-        ApiError.UnauthorizedError('No authorization header provided')
-      );
-    }
-
-    const token = authorizationHeader.split(' ')[1];
-
-    if (!token) {
+    if (!accessToken) {
       return next(ApiError.UnauthorizedError('No token provided'));
     }
 
-    req.user = jwtService.verifyToken(token);
+    req.user = jwtService.verifyToken(accessToken);
     next();
   } catch (e) {
     return next(ApiError.UnauthorizedError('Unauthorized error'));
