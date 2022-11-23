@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="ApiError.html#.BadRequest">BadRequest</a></li><li><a href="ApiError.html#.UnauthorizedError">UnauthorizedError</a></li></ul></div><div class="category"><h2>Auth</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-authMiddleware.html">authMiddleware</a></li></ul><h3>Classes / Controllers</h3><ul><li><a href="AuthController.html">AuthController</a></li></ul><h3>Classes / Services</h3><ul><li><a href="AuthService.html">AuthService</a></li><li><a href="JwtService.html">JwtService</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-globalExceptionMiddleware.html">globalExceptionMiddleware</a></li></ul><h3>Modules / Helpers</h3><ul><li><a href="module-validateOrThrow.html">validateOrThrow</a></li></ul><h3>Classes / Errors</h3><ul><li><a href="ApiError.html">ApiError</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="BaseResponse.html">BaseResponse</a></li></ul></div><div class="category"><h2>Auth</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-authMiddleware.html">authMiddleware</a></li></ul><h3>Classes / Controllers</h3><ul><li><a href="AuthController.html">AuthController</a></li></ul><h3>Classes / Services</h3><ul><li><a href="AuthService.html">AuthService</a></li><li><a href="JwtService.html">JwtService</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-globalExceptionMiddleware.html">globalExceptionMiddleware</a></li></ul><h3>Modules / Helpers</h3><ul><li><a href="module-validateOrThrow.html">validateOrThrow</a></li></ul><h3>Classes / Errors</h3><ul><li><a href="ApiError.html">ApiError</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
                 
             </nav>
         </div>
@@ -86,7 +86,6 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import jwt from 'jsonwebtoken';
-import { EnvConfig } from '../../../envConfig';
 
 /**
  * @class
@@ -94,18 +93,23 @@ import { EnvConfig } from '../../../envConfig';
  * @subcategory Services
  */
 class JwtService {
-  getToken(userId: string) {
-    if (!EnvConfig.SECRET_KEY) {
-      throw new Error('Internal server error');
-    }
-    return jwt.sign({ userId }, EnvConfig.SECRET_KEY, { expiresIn: '1h' });
+  /**
+   * Generate access token which expires in 1 hour
+   * @method
+   * @param userId
+   * @param secretKey
+   */
+  getToken(userId: string, secretKey: string) {
+    return jwt.sign({ userId }, secretKey, { expiresIn: '1h' });
   }
 
-  verifyToken(token: string) {
-    if (!EnvConfig.SECRET_KEY) {
-      throw new Error('Internal server error');
-    }
-    return jwt.verify(token, EnvConfig.SECRET_KEY) as { userId: string };
+  /**
+   * Verify access token
+   * @param token
+   * @param secretKey
+   */
+  verifyToken(token: string, secretKey: string) {
+    return jwt.verify(token, secretKey) as { userId: string };
   }
 }
 

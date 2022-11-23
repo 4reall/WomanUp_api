@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> modules/user/user.model.ts</title>
+  <title> modules/auth/auth.types.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>modules/user/user.model.ts</h1>
+                    <h1>modules/auth/auth.types.ts</h1>
                 </header>
                 
 
@@ -85,29 +85,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { model, Schema } from 'mongoose';
+            <pre class="prettyprint source linenums"><code>import { IUser } from '../user/user.model';
 
 /**
- * @interface IUser
- * @category User
- * @subcategory Interface
- * @property {string} _id User MongoId
- * @property {string} login User e-mail
- * @property {string} password User password.
- * Less than 20, more than 4
+ * @interface
+ * @property {IUser} user
+ * @property {token} string JWT
  */
-export interface IUser {
-  _id: string;
-  login: string;
-  password: string;
+export interface BaseResponse {
+  user: IUser;
+  token: string;
 }
-
-const userSchema = new Schema&lt;IUser>({
-  login: { type: String, required: true, unique: true },
-  password: { type: String, required: true, min: 4, max: 20 },
-});
-
-export const User = model&lt;IUser>('User', userSchema);
 </code></pre>
         </article>
     </section>
