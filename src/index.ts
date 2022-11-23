@@ -13,10 +13,17 @@ import todoRouter from './modules/todo/todo.route';
 const app: Express = express();
 const PORT = EnvConfig.PORT || 5500;
 
+app.use(
+  cors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    methods: ['POST', 'PATCH', 'GET', 'DELETE', 'OPTIONS'],
+  })
+);
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
 
+app.options('*', cors());
 app.use('/', authRoute);
 app.use('/todos', todoRouter);
 
@@ -24,15 +31,9 @@ app.use(globalExceptionMiddleware);
 
 const startApp = async () => {
   try {
-    if (!EnvConfig.DB_URL) {
-      console.log('Database url was not specified');
-      return;
-    }
     await mongoose.connect(EnvConfig.DB_URL);
     app.listen(PORT, () => {
-      console.log(
-        `⚡️[server]: Server is running at https://localhost:${PORT}`
-      );
+      console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
     });
   } catch (e) {
     console.log(e);
