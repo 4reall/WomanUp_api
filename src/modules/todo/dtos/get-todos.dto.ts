@@ -1,4 +1,4 @@
-import { IsIn, IsMongoId, IsNumber, IsOptional } from 'class-validator';
+import { IsIn, IsMongoId, IsNumber, IsOptional, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 /**
@@ -19,12 +19,14 @@ export class GetTodosDto {
 
   @IsOptional()
   @IsNumber()
+  @Min(1)
   @Type(() => Number)
   readonly page: number = 1;
 
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
+  @Min(0)
   readonly limit: number;
 
   @IsMongoId()
@@ -44,18 +46,20 @@ export class GetTodosDto {
      */
     this.sortBy = sortBy;
     /**
-     * determines sort order
+     * Determines sort order. 1 for ascending and -1 for descending order
      * @readonly
      * @property {string} [order] 1 | -1
      */
     this.order = orderBy;
     /**
+     * Minimal 1
      * @readonly
      * @property {number} [page]
      * @default 1
      */
     this.page = page;
     /**
+     * Minimal 0
      * @readonly
      * @property {number} [limit]
      */
