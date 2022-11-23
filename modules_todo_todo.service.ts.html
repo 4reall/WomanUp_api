@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="BaseResponse.html">BaseResponse</a></li></ul></div><div class="category"><h2>Auth</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-authMiddleware.html">authMiddleware</a></li></ul><h3>Classes / Controllers</h3><ul><li><a href="AuthController.html">AuthController</a></li></ul><h3>Classes / Services</h3><ul><li><a href="AuthService.html">AuthService</a></li><li><a href="JwtService.html">JwtService</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-globalExceptionMiddleware.html">globalExceptionMiddleware</a></li></ul><h3>Modules / Helpers</h3><ul><li><a href="module-validateOrThrow.html">validateOrThrow</a></li></ul><h3>Classes / Errors</h3><ul><li><a href="ApiError.html">ApiError</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Auth</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-authMiddleware.html">authMiddleware</a></li></ul><h3>Classes / Controllers</h3><ul><li><a href="AuthController.html">AuthController</a></li></ul><h3>Classes / Services</h3><ul><li><a href="AuthService.html">AuthService</a></li><li><a href="JwtService.html">JwtService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="BaseResponse.html">BaseResponse</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules / Middlewares</h3><ul><li><a href="module-globalExceptionMiddleware.html">globalExceptionMiddleware</a></li></ul><h3>Modules / Helpers</h3><ul><li><a href="module-validateOrThrow.html">validateOrThrow</a></li></ul><h3>Classes / Errors</h3><ul><li><a href="ApiError.html">ApiError</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Classes / Services</h3><ul><li><a href="TodoService.html">TodoService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
                 
             </nav>
         </div>
@@ -86,20 +86,25 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import { TodoDto } from './dtos/todo.dto';
-import { Todo } from './todo.model';
+import { ITodo, Todo } from './todo.model';
 import { GetTodosDto } from './dtos/get-todos.dto';
 
 /**
- * @class Todo
+ * @class
  * @category Todo
  * @subcategory Services
  */
 export class TodoService {
   /**
+   * If limit not provided, function returns all todos
+   * which belong the user with the given id.
+   * Otherwise, returns todos from (limit * page) to (limit * page) + limit.
+   * If (page * limit) more than all todos sets page to (all todos count / limit)
    * @method
    * @param {GetTodosDto} getTodosDto
+   * @return {Promise&lt;ITodo[]>}
    */
-  async getTodos(getTodosDto: GetTodosDto) {
+  async getTodos(getTodosDto: GetTodosDto): Promise&lt;ITodo[]> {
     const { userId, order, page, sortBy, limit } = getTodosDto;
     const totalCount = await Todo.find({ userId }).count();
 
@@ -112,15 +117,31 @@ export class TodoService {
       .sort({ [sortBy]: order });
   }
 
+  /**
+   * @method
+   * @param {string} todoId
+   * @return {Promise&lt;void>}
+   */
   async deleteTodo(todoId: string) {
     await Todo.findByIdAndDelete(todoId);
   }
 
+  /**
+   * Update zero or more fields of the todo with the given id
+   * @method
+   * @param {TodoDto} todoDto
+   * @return {Promise&lt;ITodo>}
+   */
   async updateTodo(todoDto: TodoDto) {
     const { _id, ...rest } = todoDto;
     return Todo.findByIdAndUpdate(_id, rest);
   }
 
+  /**
+   * @method
+   * @param {TodoDto} todoDto
+   * @return {Promise&lt;ITodo>}
+   */
   async createTodo(todoDto: TodoDto) {
     return await Todo.create(todoDto);
   }

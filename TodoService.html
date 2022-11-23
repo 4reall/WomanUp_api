@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> TodoDto</title>
+  <title> TodoService</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Class</p>
-                    <h1>TodoDto</h1>
+                    <h1>TodoService</h1>
                 </header>
                 
 
@@ -85,7 +85,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>TodoDto<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>TodoService<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -104,12 +104,12 @@
 
 
     
-    <h4 class="name" id="TodoDto">
-        <a class="href-link" href="#TodoDto">#</a>
+    <h4 class="name" id="TodoService">
+        <a class="href-link" href="#TodoService">#</a>
         
         <span class="code-name">
             
-                new TodoDto<span class="signature">()</span><span class="type-signature"></span>
+                new TodoService<span class="signature">()</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -163,9 +163,9 @@
 
     
         <p class="tag-source">
-            <a href="modules_todo_dtos_todo.dto.ts.html" class="button">View Source</a>
+            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
             <span>
-                <a href="modules_todo_dtos_todo.dto.ts.html">modules/todo/dtos/todo.dto.ts</a>, <a href="modules_todo_dtos_todo.dto.ts.html#line9">line 9</a>
+                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line8">line 8</a>
             </span>
         </p>
     
@@ -212,24 +212,33 @@
     
 
     
+
+    
         <div class='vertical-section'>
-            <h1>Members</h1>
+            <h1>Methods</h1>
             <div class="members">
             
                 <div class="member">
 
-<h4 class="name" id="_id">
-    <a class="href-link" href="#_id">#</a>
+
     
+    <h4 class="name" id="createTodo">
+        <a class="href-link" href="#createTodo">#</a>
         
-            <span class='tag'>readonly</span>
+            
+                <span class='tag'>async</span>
+            
         
+        <span class="code-name">
+            
+                createTodo<span class="signature">(todoDto)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="ITodo.html">ITodo</a>>}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        _id
-    </span>
+
     
-</h4>
+    
 
 
 
@@ -238,11 +247,11 @@
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+    <h5>Parameters:</h5>
     
 <div class="table-container">
-    <table class="props table">
+    <table class="params table">
         <thead>
         <tr>
             
@@ -261,32 +270,36 @@
 
         <tbody>
         
+
             
 <tr class="deep-level-0">
-    
-        <td class="name"><code>_id</code></td>
-    
+  
+      <td class="name"><code>todoDto</code></td>
+  
 
-    <td class="type">
-    
-        
-<code class="param-type">string</code>
+  <td class="type">
+  
+      
+<code class="param-type"><a href="TodoDto.html">TodoDto</a></code>
 
 
-    
-    </td>
+  
+  </td>
 
-    
+  
 
-    
+  
 
-    <td class="description last">MongoId of todo</td>
+  <td class="description last"></td>
 </tr>
+
 
         
         </tbody>
     </table>
 </div>
+
+
 
 
 
@@ -323,14 +336,53 @@
 
     
         <p class="tag-source">
-            <a href="modules_todo_dtos_todo.dto.ts.html" class="button">View Source</a>
+            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
             <span>
-                <a href="modules_todo_dtos_todo.dto.ts.html">modules/todo/dtos/todo.dto.ts</a>, <a href="modules_todo_dtos_todo.dto.ts.html#line39">line 39</a>
+                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line92">line 92</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;<a href="ITodo.html">ITodo</a>></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -339,18 +391,25 @@
             
                 <div class="member">
 
-<h4 class="name" id="description">
-    <a class="href-link" href="#description">#</a>
+
     
+    <h4 class="name" id="deleteTodo">
+        <a class="href-link" href="#deleteTodo">#</a>
         
-            <span class='tag'>readonly</span>
+            
+                <span class='tag'>async</span>
+            
         
+        <span class="code-name">
+            
+                deleteTodo<span class="signature">(todoId)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        description
-    </span>
+
     
-</h4>
+    
 
 
 
@@ -359,11 +418,11 @@
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+    <h5>Parameters:</h5>
     
 <div class="table-container">
-    <table class="props table">
+    <table class="params table">
         <thead>
         <tr>
             
@@ -372,8 +431,6 @@
 
             <th>Type</th>
 
-            
-            <th>Attributes</th>
             
 
             
@@ -384,40 +441,36 @@
 
         <tbody>
         
+
             
 <tr class="deep-level-0">
-    
-        <td class="name"><code>description</code></td>
-    
+  
+      <td class="name"><code>todoId</code></td>
+  
 
-    <td class="type">
-    
-        
+  <td class="type">
+  
+      
 <code class="param-type">string</code>
 
 
-    
-    </td>
+  
+  </td>
 
-    
-        <td class="attributes">
-        
-            &lt;optional><br>
-        
+  
 
-        
-        </td>
-    
+  
 
-    
-
-    <td class="description last"></td>
+  <td class="description last"></td>
 </tr>
+
 
         
         </tbody>
     </table>
 </div>
+
+
 
 
 
@@ -454,14 +507,53 @@
 
     
         <p class="tag-source">
-            <a href="modules_todo_dtos_todo.dto.ts.html" class="button">View Source</a>
+            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
             <span>
-                <a href="modules_todo_dtos_todo.dto.ts.html">modules/todo/dtos/todo.dto.ts</a>, <a href="modules_todo_dtos_todo.dto.ts.html#line29">line 29</a>
+                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line77">line 77</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;void></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -470,18 +562,32 @@
             
                 <div class="member">
 
-<h4 class="name" id="title">
-    <a class="href-link" href="#title">#</a>
+
     
+    <h4 class="name" id="getTodos">
+        <a class="href-link" href="#getTodos">#</a>
         
-            <span class='tag'>readonly</span>
+            
+                <span class='tag'>async</span>
+            
         
+        <span class="code-name">
+            
+                getTodos<span class="signature">(getTodosDto)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="ITodo.html">ITodo</a>>>}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        title
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        If limit not provided, function returns all todos
+which belong the user with the given id.
+Otherwise, returns todos from (limit * page) to (limit * page) + limit.
+If (page * limit) more than all todos sets page to (all todos count / limit)
+    </div>
+    
 
 
 
@@ -490,11 +596,11 @@
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+    <h5>Parameters:</h5>
     
 <div class="table-container">
-    <table class="props table">
+    <table class="params table">
         <thead>
         <tr>
             
@@ -513,32 +619,36 @@
 
         <tbody>
         
+
             
 <tr class="deep-level-0">
-    
-        <td class="name"><code>title</code></td>
-    
+  
+      <td class="name"><code>getTodosDto</code></td>
+  
 
-    <td class="type">
-    
-        
-<code class="param-type">string</code>
+  <td class="type">
+  
+      
+<code class="param-type"><a href="GetTodosDto.html">GetTodosDto</a></code>
 
 
-    
-    </td>
+  
+  </td>
 
-    
+  
 
-    
+  
 
-    <td class="description last"></td>
+  <td class="description last"></td>
 </tr>
+
 
         
         </tbody>
     </table>
 </div>
+
+
 
 
 
@@ -575,14 +685,53 @@
 
     
         <p class="tag-source">
-            <a href="modules_todo_dtos_todo.dto.ts.html" class="button">View Source</a>
+            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
             <span>
-                <a href="modules_todo_dtos_todo.dto.ts.html">modules/todo/dtos/todo.dto.ts</a>, <a href="modules_todo_dtos_todo.dto.ts.html#line24">line 24</a>
+                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line70">line 70</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Array.&lt;<a href="ITodo.html">ITodo</a>>></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -591,18 +740,29 @@
             
                 <div class="member">
 
-<h4 class="name" id="userId">
-    <a class="href-link" href="#userId">#</a>
+
     
+    <h4 class="name" id="updateTodo">
+        <a class="href-link" href="#updateTodo">#</a>
         
-            <span class='tag'>readonly</span>
+            
+                <span class='tag'>async</span>
+            
         
+        <span class="code-name">
+            
+                updateTodo<span class="signature">(todoDto)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="ITodo.html">ITodo</a>>}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        userId
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        Update zero or more fields of the todo with the given id
+    </div>
+    
 
 
 
@@ -611,11 +771,11 @@
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+    <h5>Parameters:</h5>
     
 <div class="table-container">
-    <table class="props table">
+    <table class="params table">
         <thead>
         <tr>
             
@@ -634,32 +794,36 @@
 
         <tbody>
         
+
             
 <tr class="deep-level-0">
-    
-        <td class="name"><code>userId</code></td>
-    
+  
+      <td class="name"><code>todoDto</code></td>
+  
 
-    <td class="type">
-    
-        
-<code class="param-type">string</code>
+  <td class="type">
+  
+      
+<code class="param-type"><a href="TodoDto.html">TodoDto</a></code>
 
 
-    
-    </td>
+  
+  </td>
 
-    
+  
 
-    
+  
 
-    <td class="description last">MongoId</td>
+  <td class="description last"></td>
 </tr>
+
 
         
         </tbody>
     </table>
 </div>
+
+
 
 
 
@@ -696,14 +860,53 @@
 
     
         <p class="tag-source">
-            <a href="modules_todo_dtos_todo.dto.ts.html" class="button">View Source</a>
+            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
             <span>
-                <a href="modules_todo_dtos_todo.dto.ts.html">modules/todo/dtos/todo.dto.ts</a>, <a href="modules_todo_dtos_todo.dto.ts.html#line34">line 34</a>
+                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line85">line 85</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;<a href="ITodo.html">ITodo</a>></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -712,8 +915,6 @@
             
             </div>
         </div>
-    
-
     
 
     
