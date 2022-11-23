@@ -1,6 +1,6 @@
 {
-  "name": "womenup_test_task",
-  "homepage": "https://4real.github.io/WomenUp_api",
+  "name": "womanup_test_task",
+  "homepage": "https://4real.github.io/WomanUp_api",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
