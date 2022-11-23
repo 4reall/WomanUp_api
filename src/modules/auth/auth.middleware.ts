@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ApiError } from '../../exceptions/api.error';
 import jwtService from './services/jwt.service';
+import { EnvConfig } from '../../envConfig';
 
 /**
  * Checks if there is the accessToken and sets its payload in req.user
@@ -28,7 +29,8 @@ export const authMiddleware = (
       return next(ApiError.UnauthorizedError('No token provided'));
     }
 
-    req.user = jwtService.verifyToken(accessToken);
+    req.user = jwtService.verifyToken(accessToken, EnvConfig.SECRET_KEY);
+
     next();
   } catch (e) {
     return next(ApiError.UnauthorizedError('Unauthorized error'));

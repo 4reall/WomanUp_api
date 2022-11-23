@@ -4,6 +4,7 @@ import userService from '../../user/user.service';
 import { ApiError } from '../../../exceptions/api.error';
 import jwtService from './jwt.service';
 import { BaseResponse } from '../auth.types';
+import { EnvConfig } from '../../../envConfig';
 
 /**
  * @class
@@ -11,6 +12,13 @@ import { BaseResponse } from '../auth.types';
  * @subcategory Services
  */
 class AuthService {
+  /**
+   * Function hashes a user password, creates a user and generate a jwt
+   * @async
+   * @method
+   * @param {UserDto} userDto
+   * @return {Promise<BaseResponse>}
+   */
   async registration(userDto: UserDto): Promise<BaseResponse> {
     const hashedPassword = await bcrypt.hash(userDto.password, 3);
 
@@ -19,11 +27,19 @@ class AuthService {
       password: hashedPassword,
     });
 
-    const token = jwtService.getToken(user._id);
+    const token = jwtService.getToken(user._id, EnvConfig.SECRET_KEY);
 
     return { user, token };
   }
 
+  /**
+   * Function gets user from userService, compares passwords
+   * and throw if passwords are not equal
+   * @async
+   * @method
+   * @param {UserDto} userDto
+   * @return {Promise<BaseResponse>}
+   */
   async login(userDto: UserDto): Promise<BaseResponse> {
     const user = await userService.getUser(userDto.login);
 
@@ -36,7 +52,7 @@ class AuthService {
       throw ApiError.BadRequest('Invalid password');
     }
 
-    const token = jwtService.getToken(user._id);
+    const token = jwtService.getToken(user._id, EnvConfig.SECRET_KEY);
 
     return { user, token };
   }

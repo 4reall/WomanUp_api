@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { EnvConfig } from '../../../envConfig';
 
 /**
  * @class
@@ -7,18 +6,23 @@ import { EnvConfig } from '../../../envConfig';
  * @subcategory Services
  */
 class JwtService {
-  getToken(userId: string) {
-    if (!EnvConfig.SECRET_KEY) {
-      throw new Error('Internal server error');
-    }
-    return jwt.sign({ userId }, EnvConfig.SECRET_KEY, { expiresIn: '1h' });
+  /**
+   * Generate access token which expires in 1 hour
+   * @method
+   * @param userId
+   * @param secretKey
+   */
+  getToken(userId: string, secretKey: string) {
+    return jwt.sign({ userId }, secretKey, { expiresIn: '1h' });
   }
 
-  verifyToken(token: string) {
-    if (!EnvConfig.SECRET_KEY) {
-      throw new Error('Internal server error');
-    }
-    return jwt.verify(token, EnvConfig.SECRET_KEY) as { userId: string };
+  /**
+   * Verify access token
+   * @param token
+   * @param secretKey
+   */
+  verifyToken(token: string, secretKey: string) {
+    return jwt.verify(token, secretKey) as { userId: string };
   }
 }
 

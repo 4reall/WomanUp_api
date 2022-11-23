@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
+import { plainToInstance } from 'class-transformer';
 import { TodoDto } from './dtos/todo.dto';
 import todoService from './todo.service';
-import { plainToInstance } from 'class-transformer';
 import { GetTodosDto } from './dtos/get-todos.dto';
 import { validateOrThrow } from '../../lib/validateOrThrow';
 

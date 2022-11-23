@@ -1,5 +1,5 @@
 /**
- * @class
+ * @class ApiError
  * @category Global
  * @subcategory Errors
  */
@@ -18,7 +18,7 @@ export class ApiError extends Error {
    * @static
    * @param {string} [message='Unauthorized Error']
    * @param {unknown[]} [errors]
-   * @constructor
+   * @constructors
    */
   static UnauthorizedError(
     message: string = 'Unauthorized Error',
@@ -32,7 +32,7 @@ export class ApiError extends Error {
    * @static
    * @param {string} [message='Bad Request']
    * @param {unknown[]} [errors]
-   * @constructor
+   * @constructors
    */
   static BadRequest(message: string = 'Bad Request', errors?: unknown[]) {
     return new ApiError(400, message, errors);

@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import * as mongoose from 'mongoose';
 import cors from 'cors';
+
 import { EnvConfig } from './envConfig';
 import authRoute from './modules/auth/auth.route';
 import { globalExceptionMiddleware } from './middlewares/global-exception.middleware';
