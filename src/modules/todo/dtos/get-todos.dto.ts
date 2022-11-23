@@ -1,6 +1,11 @@
 import { IsIn, IsMongoId, IsNumber, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 
+/**
+ * @class GetTodosDto
+ * @category Todo
+ * @subcategory DTOs
+ */
 export class GetTodosDto {
   @IsOptional()
   @IsIn(['title', 'description'])
@@ -10,7 +15,7 @@ export class GetTodosDto {
   @IsNumber()
   @IsIn([1, -1])
   @Type(() => Number)
-  readonly orderBy: 1 | -1;
+  readonly order: 1 | -1;
 
   @IsOptional()
   @IsNumber()
@@ -32,10 +37,33 @@ export class GetTodosDto {
     limit: number,
     userId: string
   ) {
+    /**
+     * determines which filed to sort
+     * @readonly
+     * @property {string} [sortBy] title | description
+     */
     this.sortBy = sortBy;
-    this.orderBy = orderBy;
+    /**
+     * determines sort order
+     * @readonly
+     * @property {string} [order] 1 | -1
+     */
+    this.order = orderBy;
+    /**
+     * @readonly
+     * @property {number} [page]
+     * @default 1
+     */
     this.page = page;
+    /**
+     * @readonly
+     * @property {number} [limit]
+     */
     this.limit = limit;
+    /**
+     * @readonly
+     * @property {string} userId MongoId
+     */
     this.userId = userId;
   }
 }

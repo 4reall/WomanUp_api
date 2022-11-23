@@ -2,9 +2,18 @@ import { TodoDto } from './dtos/todo.dto';
 import { Todo } from './todo.model';
 import { GetTodosDto } from './dtos/get-todos.dto';
 
+/**
+ * @class Todo
+ * @category Todo
+ * @subcategory Services
+ */
 export class TodoService {
+  /**
+   * @method
+   * @param {GetTodosDto} getTodosDto
+   */
   async getTodos(getTodosDto: GetTodosDto) {
-    const { userId, orderBy, page, sortBy, limit } = getTodosDto;
+    const { userId, order, page, sortBy, limit } = getTodosDto;
     const totalCount = await Todo.find({ userId }).count();
 
     const validPage =
@@ -13,7 +22,7 @@ export class TodoService {
     return Todo.find({ userId })
       .skip(limit * validPage)
       .limit(limit)
-      .sort({ [sortBy]: orderBy });
+      .sort({ [sortBy]: order });
   }
 
   async deleteTodo(todoId: string) {

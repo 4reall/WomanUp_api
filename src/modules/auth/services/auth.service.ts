@@ -5,6 +5,11 @@ import { ApiError } from '../../../exceptions/api.error';
 import jwtService from './jwt.service';
 import { BaseResponse } from '../auth.types';
 
+/**
+ * @class
+ * @category Auth
+ * @subcategory Services
+ */
 class AuthService {
   async registration(userDto: UserDto): Promise<BaseResponse> {
     const hashedPassword = await bcrypt.hash(userDto.password, 3);
@@ -20,7 +25,7 @@ class AuthService {
   }
 
   async login(userDto: UserDto): Promise<BaseResponse> {
-    const user = await userService.getUser(userDto);
+    const user = await userService.getUser(userDto.login);
 
     const isValidPassword = await bcrypt.compare(
       userDto.password,
@@ -34,10 +39,6 @@ class AuthService {
     const token = jwtService.getToken(user._id);
 
     return { user, token };
-  }
-
-  async logout(userId: string) {
-    await userService.removeUser(userId);
   }
 }
 

@@ -6,6 +6,11 @@ import {
   MaxLength,
 } from 'class-validator';
 
+/**
+ * @class TodoDto
+ * @category Todo
+ * @subcategory DTOs
+ */
 export class TodoDto {
   @IsOptional()
   @IsMongoId()
@@ -25,9 +30,25 @@ export class TodoDto {
   readonly userId: string;
 
   constructor(title: string, description: string, userId: string, _id: string) {
+    /**
+     * @readonly
+     * @property {string} title
+     */
     this.title = title;
+    /**
+     * @readonly
+     * @property {string} [description]
+     */
     this.description = description;
+    /**
+     * @readonly
+     * @property {string} userId MongoId
+     */
     this.userId = userId;
+    /**
+     * @readonly
+     * @property {string} _id MongoId of todo
+     */
     this._id = _id;
   }
 }

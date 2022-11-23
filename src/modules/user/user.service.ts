@@ -2,7 +2,19 @@ import { IUser, User } from './user.model';
 import { UserDto } from './user.dto';
 import { ApiError } from '../../exceptions/api.error';
 
+/**
+ * @class UserService
+ * @category User
+ * @subcategory Services
+ */
 class UserService {
+  /**
+   * Create a new user and throw an error if user already exists
+   * @async
+   * @method
+   * @param {UserDto} userDto
+   * @return {Promise<IUser>}
+   */
   async createUser(userDto: UserDto): Promise<IUser> {
     const user = await User.findOne({ login: userDto.login });
 
@@ -13,22 +25,22 @@ class UserService {
     return User.create(userDto);
   }
 
-  async getUser(userDto: UserDto): Promise<IUser> {
-    const user = await User.findOne({ login: userDto.login });
+  /**
+   * Function returns a user by his email
+   * Throw an error if there is no user with this email
+   * @async
+   * @method
+   * @param {string} userLogin
+   * @return {Promise<IUser>}
+   */
+  async getUser(userLogin: string): Promise<IUser> {
+    const user = await User.findOne({ login: userLogin });
 
     if (!user) {
       throw ApiError.BadRequest('User not found');
     }
 
     return user;
-  }
-
-  async removeUser(userId: string): Promise<void> {
-    const user = await User.deleteOne({ _id: userId });
-
-    if (user.deletedCount === 0) {
-      throw ApiError.BadRequest('User not found');
-    }
   }
 }
 

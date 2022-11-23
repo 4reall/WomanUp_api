@@ -1,11 +1,14 @@
 {
   "name": "womenup_test_task",
+  "homepage": "https://4real.github.io/WomenUp_api",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
     "start": "node dist/index.js",
     "postinstall": "tsc",
+    "docs": "jsdoc -c jsdoc.json",
+    "deploy-docs": "jsdoc -c jsdoc.json && gh-pages -d docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -16,7 +19,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@types/cors": "^2.8.12",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "class-transformer": "^0.5.1",
@@ -32,6 +34,8 @@
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "gh-pages": "^4.0.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.14",
@@ -39,8 +43,10 @@
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
+    "better-docs": "^2.7.2",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
+    "jsdoc": "^3.6.11",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
     "typescript": "^4.9.3"

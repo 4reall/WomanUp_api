@@ -1,3 +1,8 @@
+/**
+ * @class
+ * @category Global
+ * @subcategory Errors
+ */
 export class ApiError extends Error {
   public status;
   public errors;
@@ -8,6 +13,13 @@ export class ApiError extends Error {
     this.status = status;
   }
 
+  /**
+   * Constructor for unauthorized error
+   * @static
+   * @param {string} [message='Unauthorized Error']
+   * @param {unknown[]} [errors]
+   * @constructor
+   */
   static UnauthorizedError(
     message: string = 'Unauthorized Error',
     errors?: unknown[]
@@ -15,6 +27,13 @@ export class ApiError extends Error {
     return new ApiError(401, message, errors);
   }
 
+  /**
+   * Constructor for bad request error
+   * @static
+   * @param {string} [message='Bad Request']
+   * @param {unknown[]} [errors]
+   * @constructor
+   */
   static BadRequest(message: string = 'Bad Request', errors?: unknown[]) {
     return new ApiError(400, message, errors);
   }

@@ -1,7 +1,19 @@
 import { ApiError } from '../exceptions/api.error';
 import { NextFunction, Request, Response } from 'express';
-
+/**
+ * @module globalExceptionMiddleware
+ * @category Global
+ * @subcategory Middlewares
+ */
 // noinspection JSUnusedLocalSymbols
+/**
+ * @function
+ * @memberOf module:globalExceptionMiddleware
+ * @param {TypeError | ApiError} err
+ * @param {Request} req Express Request
+ * @param {Response} res Express Response
+ * @param {NextFunction} next Express NextFunction
+ */
 export const globalExceptionMiddleware = (
   err: TypeError | ApiError,
   req: Request,

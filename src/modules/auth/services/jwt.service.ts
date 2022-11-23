@@ -1,6 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { EnvConfig } from '../../../envConfig';
 
+/**
+ * @class
+ * @category Auth
+ * @subcategory Services
+ */
 class JwtService {
   getToken(userId: string) {
     if (!EnvConfig.SECRET_KEY) {

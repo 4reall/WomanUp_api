@@ -5,7 +5,25 @@ import { plainToInstance } from 'class-transformer';
 import { GetTodosDto } from './dtos/get-todos.dto';
 import { validateOrThrow } from '../../lib/validateOrThrow';
 
+/**
+ * @class
+ * @category Todo
+ * @subcategory Controller
+ */
 export class TodoController {
+  /**
+   * Method: GET
+   * <br/>
+   * Route: /todos
+   * <br/>
+   * Throws an error if req.user.userId
+   * (sets automatically for logged-in users by authMiddleware)
+   * not provided
+   * @async
+   * @method
+   * @param {GetTodosDto} req.query
+   * @return {IUser} Status code 200
+   */
   async getTodos(req: Request, res: Response, next: NextFunction) {
     try {
       const getTodosDto = plainToInstance(GetTodosDto, {
@@ -22,6 +40,15 @@ export class TodoController {
     }
   }
 
+  /**
+   * Method: DELETE
+   * <br/>
+   * Route: /todos/:todoId
+   * @async
+   * @method
+   * @param {string} req.params.todoId
+   * @return {IUser} Status code 200
+   */
   async deleteTodo(req: Request, res: Response, next: NextFunction) {
     try {
       await todoService.deleteTodo(req.params.todoId);
@@ -32,6 +59,17 @@ export class TodoController {
     }
   }
 
+  /**
+   * Method: PATCH
+   * <br/>
+   * Route: /todos/:todoId
+   * <br/>
+   * Body should contain new title and/or description
+   * @async
+   * @method
+   * @param {TodoDto} req.body
+   * @return {IUser} Status code 200
+   */
   async updateTodo(req: Request, res: Response, next: NextFunction) {
     try {
       const todoDto = plainToInstance(TodoDto, {
@@ -51,6 +89,19 @@ export class TodoController {
     }
   }
 
+  /**
+   * Method: POST
+   * <br/>
+   * Route: /todos
+   * <br/>
+   * Throws an error if req.user.userId
+   * (sets automatically for logged-in users by authMiddleware)
+   * not provided
+   * @async
+   * @method
+   * @param {TodoDto} req.body
+   * @return {IUser} Status code 200
+   */
   async createTodo(req: Request, res: Response, next: NextFunction) {
     try {
       const todoDto = plainToInstance(TodoDto, {
