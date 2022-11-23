@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Todo</title>
+  <title> modules/todo/dtos/get-todos.dto.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,154 +75,88 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Class</p>
-                    <h1>Todo</h1>
+                    <p>Source</p>
+                    <h1>modules/todo/dtos/get-todos.dto.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Todo<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="Todo">
-        <a class="href-link" href="#Todo">#</a>
-        
-        <span class="code-name">
-            
-                new Todo<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
-            <span>
-                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line3">line 3</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { IsIn, IsMongoId, IsNumber, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+
+/**
+ * @class GetTodosDto
+ * @category Todo
+ * @subcategory DTOs
+ */
+export class GetTodosDto {
+  @IsOptional()
+  @IsIn(['title', 'description'])
+  readonly sortBy: string;
+
+  @IsOptional()
+  @IsNumber()
+  @IsIn([1, -1])
+  @Type(() => Number)
+  readonly order: 1 | -1;
+
+  @IsOptional()
+  @IsNumber()
+  @Type(() => Number)
+  readonly page: number = 1;
+
+  @IsOptional()
+  @IsNumber()
+  @Type(() => Number)
+  readonly limit: number;
+
+  @IsMongoId()
+  readonly userId: string;
+
+  constructor(
+    sortBy: string,
+    orderBy: 1 | -1,
+    page: number,
+    limit: number,
+    userId: string
+  ) {
+    /**
+     * determines which filed to sort
+     * @readonly
+     * @property {string} [sortBy] title | description
+     */
+    this.sortBy = sortBy;
+    /**
+     * determines sort order
+     * @readonly
+     * @property {string} [order] 1 | -1
+     */
+    this.order = orderBy;
+    /**
+     * @readonly
+     * @property {number} [page]
+     * @default 1
+     */
+    this.page = page;
+    /**
+     * @readonly
+     * @property {number} [limit]
+     */
+    this.limit = limit;
+    /**
+     * @readonly
+     * @property {string} userId MongoId
+     */
+    this.userId = userId;
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

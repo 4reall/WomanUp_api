@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Todo</title>
+  <title> lib/validateOrThrow.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,154 +75,44 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Class</p>
-                    <h1>Todo</h1>
+                    <p>Source</p>
+                    <h1>lib/validateOrThrow.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Todo<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="Todo">
-        <a class="href-link" href="#Todo">#</a>
-        
-        <span class="code-name">
-            
-                new Todo<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
-            <span>
-                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line3">line 3</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { validate, ValidatorOptions } from 'class-validator';
+import { ApiError } from '../exceptions/api.error';
+
+/**
+ * @module validateOrThrow
+ * @category Global
+ * @subcategory Helpers
+ */
+/**
+ * @function
+ * @memberOf module:validateOrThrow
+ * @param {object} object
+ * @param {ValidatorOptions} validatorOptions options of class-validator "validate" function
+ * @param {string} message
+ */
+export const validateOrThrow = async (
+  object: object,
+  validatorOptions?: ValidatorOptions,
+  message?: string
+) => {
+  const errors = await validate(object, validatorOptions);
+  if (errors.length > 0) {
+    throw ApiError.BadRequest(message, errors);
+  }
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

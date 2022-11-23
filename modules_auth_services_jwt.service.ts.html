@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Todo</title>
+  <title> modules/auth/services/jwt.service.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,154 +75,44 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Class</p>
-                    <h1>Todo</h1>
+                    <p>Source</p>
+                    <h1>modules/auth/services/jwt.service.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Todo<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="Todo">
-        <a class="href-link" href="#Todo">#</a>
-        
-        <span class="code-name">
-            
-                new Todo<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
-            <span>
-                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line3">line 3</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import jwt from 'jsonwebtoken';
+import { EnvConfig } from '../../../envConfig';
+
+/**
+ * @class
+ * @category Auth
+ * @subcategory Services
+ */
+class JwtService {
+  getToken(userId: string) {
+    if (!EnvConfig.SECRET_KEY) {
+      throw new Error('Internal server error');
+    }
+    return jwt.sign({ userId }, EnvConfig.SECRET_KEY, { expiresIn: '1h' });
+  }
+
+  verifyToken(token: string) {
+    if (!EnvConfig.SECRET_KEY) {
+      throw new Error('Internal server error');
+    }
+    return jwt.verify(token, EnvConfig.SECRET_KEY) as { userId: string };
+  }
+}
+
+export default new JwtService();
+</code></pre>
+        </article>
+    </section>
 
 
 

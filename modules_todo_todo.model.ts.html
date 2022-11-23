@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Todo</title>
+  <title> modules/todo/todo.model.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,154 +75,48 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Class</p>
-                    <h1>Todo</h1>
+                    <p>Source</p>
+                    <h1>modules/todo/todo.model.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Todo<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="Todo">
-        <a class="href-link" href="#Todo">#</a>
-        
-        <span class="code-name">
-            
-                new Todo<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
-            <span>
-                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line3">line 3</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { model, Schema, Types } from 'mongoose';
+import dayjs from 'dayjs';
+
+/**
+ * @interface ITodo
+ * @category Todo
+ * @subcategory Interface
+ * @property {string} _id Todo MongoId
+ * @property {string} title Todo title
+ * @property {string} description Todo description.
+ * @property {string} createdAt Date when todo was created in YYYY-MM-DDTHH:mm:ss format.
+ * @property {string} userId MongoId of user to whom todo belongs
+ */
+export interface ITodo {
+  _id: Types.ObjectId;
+  title: string;
+  description: string;
+  createdAt: string;
+  userId: Types.ObjectId;
+}
+
+const todoSchema = new Schema&lt;ITodo>({
+  title: { type: String, required: true },
+  description: { type: String },
+  createdAt: { type: String, default: dayjs().format('YYYY-MM-DDTHH:mm:ss') },
+  userId: { type: Schema.Types.ObjectId, required: true },
+});
+
+export const Todo = model&lt;ITodo>('Todo', todoSchema);
+</code></pre>
+        </article>
+    </section>
 
 
 

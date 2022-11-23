@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> todo/todo.model.ts</title>
+  <title> auth/auth.controller.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>todo/todo.model.ts</h1>
+                    <h1>auth/auth.controller.ts</h1>
                 </header>
                 
 
@@ -85,35 +85,103 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { model, Schema, Types } from 'mongoose';
-import dayjs from 'dayjs';
+            <pre class="prettyprint source linenums"><code>import authService from './services/auth.service';
+import { NextFunction, Request, Response } from 'express';
+import { plainToInstance } from 'class-transformer';
+import { UserDto } from '../user/user.dto';
+import { validateOrThrow } from '../../lib/validateOrThrow';
 
 /**
- * @interface ITodo
- * @category Todo
- * @subcategory Interface
- * @property {string} _id Todo MongoId
- * @property {string} title Todo title
- * @property {string} description Todo description.
- * @property {string} createdAt Date when todo was created in YYYY-MM-DDTHH:mm:ss format.
- * @property {string} userId MongoId of user to whom todo belongs
+ * @class
+ * @category Auth
+ * @subcategory Controllers
  */
-export interface ITodo {
-  _id: Types.ObjectId;
-  title: string;
-  description: string;
-  createdAt: string;
-  userId: Types.ObjectId;
+class AuthController {
+  /**
+   * Method: POST
+   * &lt;br/>
+   * Route: /registration
+   * &lt;br/>
+   * Function validates UserDto or throw,
+   * registers a new user and
+   * sets accessToken in httpOnly cookie
+   * @async
+   * @method
+   * @param {UserDto} req.body
+   * @returns {{ a: string, b: number }} Status code 200
+   */
+  async registration(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userDto = plainToInstance(UserDto, req.body as unknown);
+      await validateOrThrow(userDto);
+
+      const response = await authService.registration(userDto);
+      res.cookie('accessToken', response.token, {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      return res.status(200).json({ message: 'Successful registration' });
+    } catch (e) {
+      console.log('registration', e);
+      next(e);
+    }
+  }
+
+  /**
+   * Method: POST
+   * &lt;br/>
+   * Route: /login
+   * &lt;br/>
+   * Function validates UserDto or throw,
+   * login a new user and
+   * sets accessToken in httpOnly cookie
+   * @async
+   * @method
+   * @param {UserDto} req.body
+   * @return {{message: string}} Status code 200
+   */
+  async login(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userDto = plainToInstance(UserDto, req.body as unknown);
+      await validateOrThrow(userDto);
+
+      const response = await authService.login(userDto);
+      res.cookie('accessToken', response.token, {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      return res.status(200).json({ message: 'Logged-in successfully' });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  /**
+   * Method: POST
+   * &lt;br/>
+   * Route: /logout/:userId
+   * &lt;br/>
+   * Remove accessToken cookie
+   * @async
+   * @method
+   * @param {{userId: string}} req.params
+   * @return {string} Status code 200
+   */
+  async logout(
+    req: Request&lt;{ userId: string }>,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      res.clearCookie('accessToken');
+      return res.status(200).json({ message: 'User has been logged-out' });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
-const todoSchema = new Schema&lt;ITodo>({
-  title: { type: String, required: true },
-  description: { type: String },
-  createdAt: { type: String, default: dayjs().format('YYYY-MM-DDTHH:mm:ss') },
-  userId: { type: Schema.Types.ObjectId, required: true },
-});
-
-export const Todo = model&lt;ITodo>('Todo', todoSchema);
+export default new AuthController();
 </code></pre>
         </article>
     </section>

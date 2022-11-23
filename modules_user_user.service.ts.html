@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Todo</title>
+  <title> modules/user/user.service.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,154 +75,66 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Class</p>
-                    <h1>Todo</h1>
+                    <p>Source</p>
+                    <h1>modules/user/user.service.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Todo<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="Todo">
-        <a class="href-link" href="#Todo">#</a>
-        
-        <span class="code-name">
-            
-                new Todo<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="modules_todo_todo.service.ts.html" class="button">View Source</a>
-            <span>
-                <a href="modules_todo_todo.service.ts.html">modules/todo/todo.service.ts</a>, <a href="modules_todo_todo.service.ts.html#line3">line 3</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { IUser, User } from './user.model';
+import { UserDto } from './user.dto';
+import { ApiError } from '../../exceptions/api.error';
+
+/**
+ * @class UserService
+ * @category User
+ * @subcategory Services
+ */
+class UserService {
+  /**
+   * Create a new user and throw an error if user already exists
+   * @async
+   * @method
+   * @param {UserDto} userDto
+   * @return {Promise&lt;IUser>}
+   */
+  async createUser(userDto: UserDto): Promise&lt;IUser> {
+    const user = await User.findOne({ login: userDto.login });
+
+    if (user) {
+      throw ApiError.BadRequest('User already exists');
+    }
+
+    return User.create(userDto);
+  }
+
+  /**
+   * Function returns a user by his email
+   * Throw an error if there is no user with this email
+   * @async
+   * @method
+   * @param {string} userLogin
+   * @return {Promise&lt;IUser>}
+   */
+  async getUser(userLogin: string): Promise&lt;IUser> {
+    const user = await User.findOne({ login: userLogin });
+
+    if (!user) {
+      throw ApiError.BadRequest('User not found');
+    }
+
+    return user;
+  }
+}
+
+export default new UserService();
+</code></pre>
+        </article>
+    </section>
 
 
 

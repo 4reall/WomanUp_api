@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Auth</h2><h3>Global</h3><ul><li><a href="global.html#authMiddleware">authMiddleware</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Auth</h2><h3>Classes / Controllers</h3><ul><li><a href="AuthController.html">AuthController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authMiddleware">authMiddleware</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
                 
             </nav>
         </div>
@@ -101,7 +101,7 @@ export class TodoController {
   /**
    * Method: GET
    * &lt;br/>
-   * Route: todos/
+   * Route: /todos
    * &lt;br/>
    * Throws an error if req.user.userId
    * (sets automatically for logged-in users by authMiddleware)
@@ -130,7 +130,7 @@ export class TodoController {
   /**
    * Method: DELETE
    * &lt;br/>
-   * Route: todos/:todoId
+   * Route: /todos/:todoId
    * @async
    * @method
    * @param {string} req.params.todoId
@@ -149,7 +149,7 @@ export class TodoController {
   /**
    * Method: PATCH
    * &lt;br/>
-   * Route: todos/:todoId
+   * Route: /todos/:todoId
    * &lt;br/>
    * Body should contain new title and/or description
    * @async
@@ -179,7 +179,7 @@ export class TodoController {
   /**
    * Method: POST
    * &lt;br/>
-   * Route: todos/
+   * Route: /todos
    * &lt;br/>
    * Throws an error if req.user.userId
    * (sets automatically for logged-in users by authMiddleware)

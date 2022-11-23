@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Auth</h2><h3>Global</h3><ul><li><a href="global.html#authMiddleware">authMiddleware</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Auth</h2><h3>Classes / Controllers</h3><ul><li><a href="AuthController.html">AuthController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authMiddleware">authMiddleware</a></li></ul></div><div class="category"><h2>Todo</h2><h3>Classes / DTOs</h3><ul><li><a href="GetTodosDto.html">GetTodosDto</a></li><li><a href="TodoDto.html">TodoDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="Todo.html">Todo</a></li></ul><h3>Classes / Controller</h3><ul><li><a href="TodoController.html">TodoController</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="ITodo.html">ITodo</a></li></ul></div><div class="category"><h2>User</h2><h3>Classes / DTOs</h3><ul><li><a href="UserDto.html">UserDto</a></li></ul><h3>Classes / Services</h3><ul><li><a href="UserService.html">UserService</a></li></ul><h3>Interfaces / Interface</h3><ul><li><a href="IUser.html">IUser</a></li></ul></div>
                 
             </nav>
         </div>
@@ -128,22 +128,6 @@ class UserService {
     }
 
     return user;
-  }
-
-  /**
-   * Function removes user for database
-   * Throw an error if there is no user with the given userId
-   * @async
-   * @method
-   * @param {string} userId
-   * @return {Promise&lt;void>}
-   */
-  async removeUser(userId: string): Promise&lt;void> {
-    const user = await User.deleteOne({ _id: userId });
-
-    if (user.deletedCount === 0) {
-      throw ApiError.BadRequest('User not found');
-    }
   }
 }
 
